@@ -4,6 +4,20 @@
 #define RED     "\033[31m"
 #define YELLOW  "\033[33m"
 
+//:===========================:WINDOW:===========================:
+
+void Application::Init(int argc, char *argv[], int x, int y, int w, int h, const char *title) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
+    glutInitWindowSize(w, h);
+    glutInitWindowPosition(x, y);
+    glutCreateWindow(title);
+}
+
+void Application::ToggleFullscreen() {
+    glutFullScreenToggle();
+}
+
 //:===========================:DEBUG:===========================:
 
 void Debug::Log(string msg) {
