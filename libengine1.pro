@@ -7,11 +7,13 @@ SOURCES += \
         LibreGE.cpp \
         LibreGE/Lua.cpp \
         LibreGE/UI.cpp \
-        main.cpp
+        main.cpp \
+        stb_image.cpp
 
-LIBS += -lGLU -lglut -lGLEW -lGL
+LIBS += -lGLU -lglut -lGLEW -lGL -lassimp
 
 HEADERS += \
     LibreGE.h \
     LibreGE/Lua.h \
-    LibreGE/UI.h \
+    LibreGE/UI.h \ \
+    stb_image.h

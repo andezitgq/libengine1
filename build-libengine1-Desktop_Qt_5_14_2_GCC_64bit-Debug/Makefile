@@ -40,7 +40,7 @@ DISTNAME      = libengine11.0.0
 DISTDIR = /home/freelogger/Документы/LibreGE/libengine1/build-libengine1-Desktop_Qt_5_14_2_GCC_64bit-Debug/.tmp/libengine11.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -lGLU -lglut -lGLEW -lGL   
+LIBS          = $(SUBLIBS) -lGLU -lglut -lGLEW -lGL -lassimp   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -55,11 +55,13 @@ OBJECTS_DIR   = ./
 SOURCES       = ../LibreGE.cpp \
 		../LibreGE/Lua.cpp \
 		../LibreGE/UI.cpp \
-		../main.cpp 
+		../main.cpp \
+		../stb_image.cpp 
 OBJECTS       = LibreGE.o \
 		Lua.o \
 		UI.o \
-		main.o
+		main.o \
+		stb_image.o
 DIST          = /home/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/unix.conf \
 		/home/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/linux.conf \
@@ -266,10 +268,13 @@ DIST          = /home/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/lex.prf \
 		../../libengine1.pro LibreGE.h \
 		LibreGE/Lua.h \
-		LibreGE/UI.h ../LibreGE.cpp \
+		LibreGE/UI.h \
+		\ \
+		stb_image.h ../LibreGE.cpp \
 		../LibreGE/Lua.cpp \
 		../LibreGE/UI.cpp \
-		../main.cpp
+		../main.cpp \
+		../stb_image.cpp
 QMAKE_TARGET  = libengine1
 DESTDIR       = 
 TARGET        = libengine1
@@ -735,19 +740,26 @@ compiler_clean:
 
 ####### Compile
 
-LibreGE.o: ../LibreGE.cpp ../LibreGE.h
+LibreGE.o: ../LibreGE.cpp ../LibreGE.h \
+		../stb_image.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LibreGE.o ../LibreGE.cpp
 
 Lua.o: ../LibreGE/Lua.cpp ../LibreGE/Lua.h \
-		../LibreGE.h
+		../LibreGE.h \
+		../stb_image.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Lua.o ../LibreGE/Lua.cpp
 
 UI.o: ../LibreGE/UI.cpp ../LibreGE/UI.h \
-		../LibreGE.h
+		../LibreGE.h \
+		../stb_image.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UI.o ../LibreGE/UI.cpp
 
-main.o: ../main.cpp 
+main.o: ../main.cpp ../LibreGE.h \
+		../stb_image.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../main.cpp
+
+stb_image.o: ../stb_image.cpp ../stb_image.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stb_image.o ../stb_image.cpp
 
 ####### Install
 

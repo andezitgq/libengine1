@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h> 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "stb_image.h"
 
 #include <iostream>
 #include <string>
@@ -103,6 +107,7 @@ struct Vertex {
 struct Texture {
     unsigned int id;
     string type;
+    aiString path;
 };
 
 class Mesh {
@@ -117,6 +122,22 @@ class Mesh {
         unsigned int VAO, VBO, EBO;
 
         void setupMesh();
+};
+//:==========================:MODEL:==========================:
+class Model
+{
+    public:
+        Model(string path);
+        void Draw(Shader &shader);
+
+    private:
+        vector<Mesh> meshes;
+        string directory;
+
+        void loadModel(string path);
+        void processNode(aiNode *node, const aiScene *scene);
+        Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+        vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
 };
 
 //:===========================:CAMERA:===========================:
