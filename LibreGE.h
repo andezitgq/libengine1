@@ -1,13 +1,17 @@
 #include <GL/glew.h>
-#include <X11/Xlib.h>
+#include <glm/mat4x4.hpp>
 #include <GL/glx.h>
 #include <GL/freeglut.h>
+#include <X11/Xlib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h> 
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <fstream>
+#include <sstream>
 
 #pragma once
 
@@ -71,14 +75,48 @@ public:
 
 };
 
-//:===========================:MESH:===========================:
-class Mesh
+//:===========================:SHADER:==========================:
+class Shader
 {
+public:
+    unsigned int ID;
+
+    Shader(const char* vertexPath, const char* fragmentPath);
+
+    void use();
+    void setBool(const string &name, bool value) const;
+    void setInt(const string &name, int value) const;
+    void setFloat(const string &name, float value) const;
 
 private:
+    void checkCompileErrors(unsigned int shader, string type);
+};
 
-public:
+//:===========================:MESH:===========================:
 
+struct Vertex {
+    glm::vec3 Position;
+    glm::vec3 Normal;
+    glm::vec2 TexCoords;
+};
+
+struct Texture {
+    unsigned int id;
+    string type;
+};
+
+class Mesh {
+    public:
+        vector<Vertex>       vertices;
+        vector<unsigned int> indices;
+        vector<Texture>      textures;
+
+        Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+        void Draw(Shader shader);
+    private:
+        unsigned int VAO, VBO, EBO;
+
+        void setupMesh();
 };
 
 //:===========================:CAMERA:===========================:
@@ -93,16 +131,6 @@ public:
 
 //:===========================:COLLIDER:===========================:
 class Collider : public Transform
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:TEXTURE:===========================:
-class Texture
 {
 
 private:
