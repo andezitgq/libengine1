@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <GL/freeglut.h>
@@ -12,22 +13,20 @@
 
 using namespace std;
 
-//:====================================================:
-
-class Application
+//:===========================:RENDERER:===========================:
+class Renderer
 {
 
 private:
 
 public:
-    Application();
-    ~Application();
+    Renderer();
+    ~Renderer();
     static void Init(int argc, char *argv[], int x, int y, int w, int h, const char *title);
     static void ToggleFullscreen();
 };
 
-//:====================================================:
-
+//:===========================:DEBUG:===========================:
 class Debug
 {
 
@@ -42,26 +41,7 @@ public:
     static void Warn(string msg);
 };
 
-//:====================================================:
-
-class Input 
-{
-
-private:
-    static void mouseLeft(int button, int state, int x, int y);
-    static void mouseRight(int button, int state, int x, int y);
-    static void mouseMiddle(int button, int state, int x, int y);
-    static bool mouseBool;
-
-public:
-    Input();
-    ~Input();
-    static bool GetMouseButtonDown(int button);
-    static bool GetMouseButtonUp(int button);
-};
-
-//:====================================================:
-
+//:===========================:TRANSFORM:===========================:
 class Transform
 {
 
@@ -69,10 +49,90 @@ private:
 
 public:
 
-}
+};
 
-//:====================================================:
+//:===========================:GAMEOBJECT:===========================:
 class GameObject : public Transform
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:RIGIDBODY:===========================:
+class RigidBody
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:MESH:===========================:
+class Mesh
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:CAMERA:===========================:
+class Camera : public Transform
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:COLLIDER:===========================:
+class Collider : public Transform
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:TEXTURE:===========================:
+class Texture
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:MATERIAL:===========================:
+class Material
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:AUDIOSOURCE:===========================:
+class AudioSource
+{
+
+private:
+
+public:
+
+};
+
+//:===========================:AUDIOLISTENER:===========================:
+class AudioListener
 {
 
 private:
