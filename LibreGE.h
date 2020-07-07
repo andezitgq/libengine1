@@ -55,36 +55,6 @@ public:
     static void Warn(string msg);
 };
 
-//:===========================:TRANSFORM:===========================:
-class Transform
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:GAMEOBJECT:===========================:
-class GameObject : public Transform
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:RIGIDBODY:===========================:
-class RigidBody
-{
-
-private:
-
-public:
-
-};
-
 //:===========================:SHADER:==========================:
 class Shader
 {
@@ -144,54 +114,4 @@ class Model
         void processNode(aiNode *node, const aiScene *scene);
         Mesh processMesh(aiMesh *mesh, const aiScene *scene);
         vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
-};
-
-//:===========================:CAMERA:===========================:
-class Camera : public Transform
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:COLLIDER:===========================:
-class Collider : public Transform
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:MATERIAL:===========================:
-class Material
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:AUDIOSOURCE:===========================:
-class AudioSource
-{
-
-private:
-
-public:
-
-};
-
-//:===========================:AUDIOLISTENER:===========================:
-class AudioListener
-{
-
-private:
-
-public:
-
 };
