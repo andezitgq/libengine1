@@ -68,7 +68,7 @@ public:
 class Shader
 {
 public:
-    unsigned int ID;
+    int ID;
 
     Shader(const char* vertexPath, const char* fragmentPath);
 
