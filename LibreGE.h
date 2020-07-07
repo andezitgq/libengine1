@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 #include <glm/mat4x4.hpp>
 #include <GL/glx.h>
-#include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
 #include <X11/Xlib.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,16 +22,22 @@
 using namespace std;
 
 //:===========================:RENDERER:===========================:
+typedef GLFWwindow GameWindow;
+
 class Renderer
 {
 
 private:
+    static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 public:
     Renderer();
     ~Renderer();
-    static void Init(int argc, char *argv[], int x, int y, int w, int h, const char *title);
+    static GameWindow *InitWindow(int w, int h, const char *title);
+    static bool ShouldClose(GameWindow *window);
+    static void ProcessInput(GameWindow *window);
     static void ToggleFullscreen();
+    static int Exit();
 };
 
 //:===========================:DEBUG:===========================:

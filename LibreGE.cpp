@@ -40,19 +40,49 @@
 #define YELLOW  "\033[33m"
 
 //:===========================:RENDERER:===========================:
+int Renderer::Exit(){
+    glfwTerminate();
+    return 0;
+}
 
-void Renderer::Init(int argc, char *argv[], int x, int y, int w, int h, const char *title) {
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
-    glutInitWindowSize(w, h);
-    glutInitWindowPosition(x, y);
-    glutCreateWindow(title);
-    glClearColor(1.0, 1.0, 1.0, 0.0);
-    glShadeModel(GL_FLAT);
+bool Renderer::ShouldClose(GameWindow *window){
+    return glfwWindowShouldClose(window);
+}
+
+void Renderer::ProcessInput(GameWindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+}
+
+void Renderer::framebuffer_size_callback(GameWindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
+GameWindow *Renderer::InitWindow(int w, int h, const char *title) {
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
+
+    GameWindow* window = glfwCreateWindow(w, h, title, NULL, NULL);
+    if (window == NULL) {
+        cout << "Failed to create GLFW window" << endl;
+        glfwTerminate();
+    }
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    return window;
 }
 
 void Renderer::ToggleFullscreen() {
-    glutFullScreenToggle();
+
 }
 
 //:===========================:DEBUG:===========================:

@@ -5,7 +5,16 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    Renderer::Init(argc, argv, 250, 250, 250, 250, "Hello World");
-    glutMainLoop();
-    return 0;
+    GameWindow *window = Renderer::InitWindow(800, 600, "Hello World");
+    while (!Renderer::ShouldClose(window)){
+        Renderer::ProcessInput(window);
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    return Renderer::Exit();
 }

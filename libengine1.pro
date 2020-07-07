@@ -10,7 +10,7 @@ SOURCES += \
         main.cpp \
         stb_image.cpp
 
-LIBS += -lGLU -lglut -lGLEW -lGL -lassimp
+LIBS += -lGLU -lglut -lGLEW -lGL -lassimp -lglfw
 
 HEADERS += \
     LibreGE.h \
