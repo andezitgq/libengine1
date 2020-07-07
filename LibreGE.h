@@ -1,11 +1,11 @@
 #include <GL/glew.h>
-#include <glm/mat4x4.hpp>
 #include <GL/glx.h>
 #include <GLFW/glfw3.h>
 #include <X11/Xlib.h>
+#include <glm/mat4x4.hpp>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h> 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
