@@ -2,7 +2,8 @@
 #include <GL/glx.h>
 #include <GLFW/glfw3.h>
 #include <X11/Xlib.h>
-#include <glm/mat4x4.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -87,12 +88,14 @@ struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
     glm::vec2 TexCoords;
+    glm::vec3 Tangent;
+    glm::vec3 Bitangent;
 };
 
 struct Texture {
     unsigned int id;
     string type;
-    aiString path;
+    string path;
 };
 
 class Mesh {
@@ -112,13 +115,16 @@ class Mesh {
 class Model
 {
     public:
+        vector<Texture> textures_loaded;
+        vector<Mesh>    meshes;
+        string directory;
+
+        bool gammaCorrection;
         Model(string path);
         void Draw(Shader &shader);
 
     private:
-        vector<Mesh> meshes;
-        string directory;
-
+        unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
         void loadModel(string path);
         void processNode(aiNode *node, const aiScene *scene);
         Mesh processMesh(aiMesh *mesh, const aiScene *scene);
