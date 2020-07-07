@@ -21,9 +21,19 @@
 
 using namespace std;
 
-//:===========================:RENDERER:===========================:
+
 typedef GLFWwindow GameWindow;
 
+//:===========================:INPUT:===========================:
+class Input {
+
+public:
+    static bool GetKey(GameWindow *window, int key);
+    static bool GetKeyDown(GameWindow *window, int key);
+    static bool GetKeyUp(GameWindow *window, int key);
+};
+
+//:===========================:RENDERER:===========================:
 class Renderer
 {
 
@@ -35,7 +45,6 @@ public:
     ~Renderer();
     static GameWindow *InitWindow(int w, int h, const char *title);
     static bool ShouldClose(GameWindow *window);
-    static void ProcessInput(GameWindow *window);
     static void ToggleFullscreen();
     static int Exit();
 };

@@ -39,6 +39,19 @@
 #define RED     "\033[31m"
 #define YELLOW  "\033[33m"
 
+//:===========================:INPUT:=============================:
+bool Input::GetKey(GameWindow *window, int key){
+    if(glfwGetKey(window, key) == GLFW_PRESS)
+        return true;
+    else return false;
+}
+
+bool Input::GetKeyDown(GameWindow *window, int key){
+    if(glfwGetKey(window, key) == GLFW_RELEASE)
+        return true;
+    else return false;
+}
+
 //:===========================:RENDERER:===========================:
 int Renderer::Exit(){
     glfwTerminate();
@@ -47,12 +60,6 @@ int Renderer::Exit(){
 
 bool Renderer::ShouldClose(GameWindow *window){
     return glfwWindowShouldClose(window);
-}
-
-void Renderer::ProcessInput(GameWindow *window)
-{
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
 }
 
 void Renderer::framebuffer_size_callback(GameWindow* window, int width, int height)
