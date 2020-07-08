@@ -53,6 +53,7 @@ bool Input::GetKeyDown(GameWindow *window, int key){
 }
 
 //:===========================:RENDERER:===========================:
+
 int Renderer::Exit(){
     glfwTerminate();
     return 0;
@@ -72,6 +73,7 @@ GameWindow *Renderer::InitWindow(int w, int h, const char *title) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwGetTime;
 
     #ifdef __APPLE__
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -457,4 +459,63 @@ void Model::Draw(Shader &shader)
 {
     for(unsigned int i = 0; i < meshes.size(); i++)
         meshes[i].Draw(shader);
+}
+
+//:============================:CAMERA:=================================:
+glm::mat4 Camera::GetViewMatrix()
+{
+    return glm::lookAt(Position, Position + Front, Up);
+}
+
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
+{
+    float velocity = MovementSpeed * deltaTime;
+    if (direction == FORWARD)
+        Position += Front * velocity;
+    if (direction == BACKWARD)
+        Position -= Front * velocity;
+    if (direction == LEFT)
+        Position -= Right * velocity;
+    if (direction == RIGHT)
+        Position += Right * velocity;
+}
+
+void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch)
+{
+    xoffset *= MouseSensitivity;
+    yoffset *= MouseSensitivity;
+
+    Yaw   += xoffset;
+    Pitch += yoffset;
+
+    if (constrainPitch)
+    {
+        if (Pitch > 89.0f)
+            Pitch = 89.0f;
+        if (Pitch < -89.0f)
+            Pitch = -89.0f;
+    }
+
+    updateCameraVectors();
+}
+
+void Camera::ProcessMouseScroll(float yoffset)
+{
+    if (Zoom >= 1.0f && Zoom <= 45.0f)
+        Zoom -= yoffset;
+    if (Zoom <= 1.0f)
+        Zoom = 1.0f;
+    if (Zoom >= 45.0f)
+        Zoom = 45.0f;
+}
+
+void Camera::updateCameraVectors()
+{
+    glm::vec3 front;
+    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    front.y = sin(glm::radians(Pitch));
+    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    Front = glm::normalize(front);
+    Right = glm::normalize(glm::cross(Front, WorldUp));
+    Up    = glm::normalize(glm::cross(Right, Front));
 }
