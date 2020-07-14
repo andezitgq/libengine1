@@ -4,4 +4,16 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        LibreGE.cpp \
+        LibreGE/Lua.cpp \
+        LibreGE/UI.cpp \
+        main.cpp \
+        stb_image.cpp
+
+LIBS += -lGLU -lGLEW -lGL -lassimp -lglfw
+
+HEADERS += \
+    LibreGE.h \
+    LibreGE/Lua.h \
+    LibreGE/UI.h \ \
+    stb_image.h
