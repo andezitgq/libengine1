@@ -8,6 +8,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -55,7 +56,12 @@ class Debug
 {
 
 private:
-    
+    static void posix_death_signal(int signum)
+    {
+        Debug::Error("Segfault detected!");
+        signal(signum, SIG_DFL);
+        exit(3);
+    }
 
 public:
     Debug();
@@ -63,6 +69,9 @@ public:
     static void Log(string msg);
     static void Error(string msg);
     static void Warn(string msg);
+    static void CatchSegfault(){
+        signal(SIGSEGV, posix_death_signal);
+    }
 };
 
 //:===========================:SHADER:==========================:
@@ -135,6 +144,7 @@ class Model
 
     private:
         unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
+        static unsigned int StaticTextureFromFile(const char *path, const string &directory, bool gamma = false);
         void loadModel(string path);
         void processNode(aiNode *node, const aiScene *scene);
         Mesh processMesh(aiMesh *mesh, const aiScene *scene);
