@@ -31,7 +31,6 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     Shader ourShader("shaders/model.vs", "shaders/model.fs");
-    Debug::CatchSegfault();
     Model ourModel("resources/objects/backpack/backpack.dae");
 
     while (!glfwWindowShouldClose(window))
@@ -67,16 +66,15 @@ int main()
 
 void processInput(GameWindow* window)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if (Input::GetKey(window, GLFW_KEY_ESCAPE))
         glfwSetWindowShouldClose(window, true);
-
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (Input::GetKey(window, GLFW_KEY_W))
         camera.ProcessKeyboard(FORWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    if (Input::GetKey(window, GLFW_KEY_S))
         camera.ProcessKeyboard(BACKWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    if (Input::GetKey(window, GLFW_KEY_A))
         camera.ProcessKeyboard(LEFT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (Input::GetKey(window, GLFW_KEY_D))
         camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 

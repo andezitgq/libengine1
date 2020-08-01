@@ -139,16 +139,17 @@ class Model
         string directory;
 
         bool gammaCorrection;
-        Model(string path);
+        Model(const string &path);
         void Draw(Shader &shader);
 
     private:
         unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
         static unsigned int StaticTextureFromFile(const char *path, const string &directory, bool gamma = false);
-        void loadModel(string path);
-        void processNode(aiNode *node, const aiScene *scene);
-        Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+        void loadModel(const string &path);
+        void processNode(const aiNode *node, const aiScene *scene);
+        Mesh processMesh(const aiMesh *mesh, const aiScene *scene);
         vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
+        Assimp::Importer import;
 };
 
 //:==========================:CAMERA:==========================:
